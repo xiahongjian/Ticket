@@ -11,10 +11,16 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.pi.home
+
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
       logic-delete-value: 0
       logic-not-delete-value: 1
-
+    type-aliases-package: tech.hongjian.ticket.coupon.entity
+  type-enums-package: tech.hongjian.tickt.coupon.entity.enums

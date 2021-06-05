@@ -1,4 +1,4 @@
-package tech.honejian.ticket.common.exception;
+package tech.hongjian.ticket.common.exception;
 
 /**
  * Created by xiahongjian on 2021/6/5.

@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos.pi.home
+        file-extension: yml
+        group: Ticket

@@ -1,10 +1,16 @@
 package tech.hongjian.ticket.member.controller;
 
+import com.sun.xml.internal.ws.developer.MemberSubmissionEndpointReference;
+import org.checkerframework.checker.guieffect.qual.AlwaysSafe;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
-import tech.honejian.ticket.common.utils.PageUtils;
-import tech.honejian.ticket.common.utils.R;
+import tech.hongjian.ticket.common.utils.PageUtils;
+import tech.hongjian.ticket.common.utils.R;
+import tech.hongjian.ticket.member.MemberApplication;
 import tech.hongjian.ticket.member.entity.UserEntity;
+import tech.hongjian.ticket.member.feign.CouponFeignService;
 import tech.hongjian.ticket.member.service.UserService;
 
 import java.util.Arrays;
@@ -19,11 +25,36 @@ import java.util.Map;
  * @email hongjian.xia@qq.com
  * @date 2021-06-05 19:13:46
  */
+@RefreshScope
 @RestController
 @RequestMapping("member/user")
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CouponFeignService  couponFeignService;
+
+
+    @Value("${test.username}")
+    private String username;
+    @Value("${test.age}")
+    private Integer age;
+
+    @GetMapping("config")
+    public R getConfig() {
+        return R.ok().put("username", username).put("age", age);
+    }
+
+
+    @GetMapping("coupons")
+    public R test() {
+        UserEntity entity = new UserEntity();
+        entity.setUsername("zhangsan");
+
+        R r = couponFeignService.listMemberCoupons(1);
+        return R.ok().put("user", entity).put("coupons", r.get("data"));
+    }
 
     /**
      * 列表

@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package tech.honejian.ticket.common.xss;
+package tech.hongjian.ticket.common.xss;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

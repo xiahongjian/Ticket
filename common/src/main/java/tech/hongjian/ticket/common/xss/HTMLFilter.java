@@ -1,4 +1,4 @@
-package tech.honejian.ticket.common.xss;
+package tech.hongjian.ticket.common.xss;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

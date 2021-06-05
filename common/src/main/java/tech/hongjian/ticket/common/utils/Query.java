@@ -6,13 +6,13 @@
  * 版权所有，侵权必究！
  */
 
-package tech.honejian.ticket.common.utils;
+package tech.hongjian.ticket.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
-import tech.honejian.ticket.common.xss.SQLFilter;
+import tech.hongjian.ticket.common.xss.SQLFilter;
 
 import java.util.Map;
 

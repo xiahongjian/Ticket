@@ -43,6 +43,6 @@ public class UserEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer enable;
+	private Boolean enable;
 
 }

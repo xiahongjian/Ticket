@@ -1,7 +1,7 @@
-package tech.honejian.ticket.common.xss;
+package tech.hongjian.ticket.common.xss;
 
 import org.apache.commons.lang3.StringUtils;
-import tech.honejian.ticket.common.exception.CommonException;
+import tech.hongjian.ticket.common.exception.CommonException;
 
 /**
  * SQL过滤

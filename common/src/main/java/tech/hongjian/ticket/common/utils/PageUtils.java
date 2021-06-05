@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package tech.honejian.ticket.common.utils;
+package tech.hongjian.ticket.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
