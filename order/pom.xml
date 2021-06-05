@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>tech.hongjian.ticket</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>web-server</artifactId>
         <version>${revision}</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../web-server/pom.xml</relativePath>
     </parent>
 
     <artifactId>order</artifactId>
@@ -17,11 +17,4 @@
     <properties>
 
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>tech.hongjian.ticket</groupId>
-            <artifactId>common</artifactId>
-            <version>${revision}</version>
-        </dependency>
-    </dependencies>
 </project>
