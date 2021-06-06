@@ -17,6 +17,7 @@
         <module>member</module>
         <module>order</module>
         <module>web-server</module>
+        <module>gateway</module>
     </modules>
 
     <properties>

@@ -21,10 +21,14 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
+
+	public static final String KEY_CODE = "code";
+	public static final String KEY_MSG = "msg";
+	public static final String KEY_DATA = "data";
 	
 	public R() {
-		put("code", 0);
-		put("msg", "success");
+		put(KEY_CODE, 0);
+		put(KEY_MSG, "success");
 	}
 	
 	public static R error() {
@@ -37,14 +41,14 @@ public class R extends HashMap<String, Object> {
 	
 	public static R error(int code, String msg) {
 		R r = new R();
-		r.put("code", code);
-		r.put("msg", msg);
+		r.put(KEY_CODE, code);
+		r.put(KEY_MSG, msg);
 		return r;
 	}
 
 	public static R ok(String msg) {
 		R r = new R();
-		r.put("msg", msg);
+		r.put(KEY_MSG, msg);
 		return r;
 	}
 	
@@ -60,6 +64,11 @@ public class R extends HashMap<String, Object> {
 
 	public R put(String key, Object value) {
 		super.put(key, value);
+		return this;
+	}
+
+	public R data(Object data) {
+		super.put(KEY_DATA, data);
 		return this;
 	}
 }
