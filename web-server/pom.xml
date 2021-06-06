@@ -18,7 +18,9 @@
         <module>../inventory</module>
         <module>../member</module>
         <module>../order</module>
+        <module>../renren-fast</module>
     </modules>
+
 
     <dependencies>
         <!--热部署-->

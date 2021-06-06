@@ -3,8 +3,6 @@ server:
 spring:
   profiles:
     active: dev
-  application:
-    name: member
   datasource:
     url: jdbc:mysql://pi.home:3306/ticket?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver

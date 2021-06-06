@@ -1,15 +1,15 @@
 server:
   port: 88
 spring:
-  application:
-    name: gateway
   cloud:
     nacos:
       discovery:
         server-addr: nacos.pi.home
     gateway:
       routes:
-        - id: qq_route
-          uri: https://www.qq.com
+        - id: front_end
+          uri: lb://admin
           predicates:
-            - Query=url,qq
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}

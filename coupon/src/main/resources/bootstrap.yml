@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: coupon
   cloud:
     nacos:
       config:
