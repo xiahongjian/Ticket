@@ -7,7 +7,31 @@ spring:
         server-addr: nacos.pi.home
     gateway:
       routes:
-        - id: front_end
+        - id: memeber_route
+          uri: lb://member
+          predicates:
+            - Path=/api/memeber/**
+          filters:
+            - RewritePath=/api/(?<segement>.*),/$\{segement}
+        - id: coupon_route
+          uri: lb://coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segement>.*),/$\{segement}
+        - id: inventory_route
+          uri: lb://inventory
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            - RewritePath=/api/(?<segement>.*),/$\{segement}
+        - id: order_route
+          uri: lb://order
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - RewritePath=/api/(?<segement>.*),/$\{segement}
+        - id: admin_route
           uri: lb://admin
           predicates:
             - Path=/api/**
