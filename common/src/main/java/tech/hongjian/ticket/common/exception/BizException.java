@@ -3,29 +3,29 @@ package tech.hongjian.ticket.common.exception;
 /**
  * Created by xiahongjian on 2021/6/5.
  */
-public class CommonException extends RuntimeException {
+public class BizException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     private String msg;
-    private int code = 500;
+    private int code = BizErrorCodeEnum.UNKNOWN_ERROR.getCode();
 
-    public CommonException(String msg) {
+    public BizException(String msg) {
         super(msg);
         this.msg = msg;
     }
 
-    public CommonException(String msg, Throwable e) {
+    public BizException(String msg, Throwable e) {
         super(msg, e);
         this.msg = msg;
     }
 
-    public CommonException(String msg, int code) {
+    public BizException(String msg, int code) {
         super(msg);
         this.msg = msg;
         this.code = code;
     }
 
-    public CommonException(String msg, int code, Throwable e) {
+    public BizException(String msg, int code, Throwable e) {
         super(msg, e);
         this.msg = msg;
         this.code = code;

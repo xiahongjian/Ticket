@@ -1,13 +1,15 @@
 package tech.hongjian.ticket.coupon.controller;
 
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tech.hongjian.ticket.common.utils.PageUtils;
 import tech.hongjian.ticket.common.utils.R;
+import tech.hongjian.ticket.common.validator.CheckIn;
 import tech.hongjian.ticket.coupon.entity.CouponEntity;
 import tech.hongjian.ticket.coupon.service.CouponService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -34,6 +36,45 @@ public class CouponController {
         entity.setName("测试优惠券");
 
         return R.ok().put("data", Arrays.asList(entity));
+    }
+
+    static class Form {
+        @NotBlank
+        public String notBlank;
+
+        @CheckIn(values = {"1", "2"})
+        public Integer value1;
+
+        @CheckIn(values = {"a", "b"})
+        public String value2;
+
+        @Max(20)
+        @Min(10)
+        public Integer intVal;
+
+        @Email
+        public String email;
+
+        @Pattern(regexp = "[a-z]*")
+        public String pattern;
+
+        @Override
+        public String toString() {
+            return "Form{" +
+                    "notBlank='" + notBlank + '\'' +
+                    ", value1=" + value1 +
+                    ", value2='" + value2 + '\'' +
+                    ", intVal=" + intVal +
+                    ", email='" + email + '\'' +
+                    ", pattern='" + pattern + '\'' +
+                    '}';
+        }
+    }
+
+    @PostMapping("/valid")
+    public R testValid(@Valid @RequestBody Form form) {
+        System.out.println(form.toString());
+        return R.ok();
     }
 
     /**
