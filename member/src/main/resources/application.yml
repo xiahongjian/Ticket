@@ -15,7 +15,16 @@ spring:
     nacos:
       discovery:
         server-addr: nacos.pi.home
-
+  redis:
+    host: pi.home
+    port: 6379
+    password: redis
+  cache:
+    redis:
+      cache-null-values: true
+      key-prefix: MEMBER_
+      use-key-prefix: true
+      time-to-live: 3600000
 mybatis-plus:
   global-config:
     db-config:

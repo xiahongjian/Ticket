@@ -13,7 +13,16 @@ spring:
     nacos:
       discovery:
         server-addr: nacos.pi.home
-
+  redis:
+    host: pi.home
+    port: 6379
+    password: redis
+  cache:
+    redis:
+      cache-null-values: true
+      key-prefix: COUPON_
+      use-key-prefix: true
+      time-to-live: 3600000
 mybatis-plus:
   global-config:
     db-config:
@@ -21,4 +30,4 @@ mybatis-plus:
       logic-delete-value: 0
       logic-not-delete-value: 1
     type-aliases-package: tech.hongjian.ticket.coupon.entity
-  type-enums-package: tech.hongjian.tickt.coupon.entity.enums
+  type-enums-package: tech.hongjian.ticket.coupon.entity.enums

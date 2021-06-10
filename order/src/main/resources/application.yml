@@ -11,6 +11,20 @@ spring:
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.pi.home
+  redis:
+    host: pi.home
+    port: 6379
+    password: redis
+  cache:
+    redis:
+      cache-null-values: true
+      key-prefix: ORDER_
+      use-key-prefix: true
+      time-to-live: 3600000
 mybatis-plus:
   global-config:
     db-config:

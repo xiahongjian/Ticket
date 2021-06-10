@@ -2,6 +2,8 @@ package tech.hongjian.ticket.coupon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tech.hongjian.ticket.common.anno.ReadLock;
+import tech.hongjian.ticket.common.anno.WriteLock;
 import tech.hongjian.ticket.common.utils.PageUtils;
 import tech.hongjian.ticket.common.utils.R;
 import tech.hongjian.ticket.common.validator.CheckIn;
@@ -27,6 +29,23 @@ import java.util.Map;
 public class CouponController {
     @Autowired
     private CouponService couponService;
+
+
+    @ReadLock("my-lock")
+    @GetMapping("read")
+    public R read() {
+        System.out.println("读。。。" + Thread.currentThread().getId());
+        return R.ok("读结束");
+    }
+
+    @WriteLock("my-lock")
+    @GetMapping("write")
+    public R write() throws InterruptedException {
+        System.out.println("写开始。。。" + Thread.currentThread().getId());
+        Thread.sleep(20000);
+        System.out.println("写结束。。。" + Thread.currentThread().getId());
+        return R.ok("写结束");
+    }
 
 
     @GetMapping("")
