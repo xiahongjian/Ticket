@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: search
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos.pi.home

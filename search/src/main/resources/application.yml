@@ -1,0 +1,26 @@
+server:
+  port: 6000
+spring:
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.pi.home
+  redis:
+    host: pi.home
+    port: 6379
+    password: redis
+  cache:
+    redis:
+      cache-null-values: true
+      key-prefix: SEARCH_
+      use-key-prefix: true
+      time-to-live: 3600000
+
+system:
+  elastic-search:
+    host: pi.home
+    port: 9200
+    schema: http
