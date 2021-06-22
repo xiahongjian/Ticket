@@ -12,73 +12,62 @@ import tech.hongjian.ticket.common.anno.ReentrantLock;
 import tech.hongjian.ticket.common.anno.WriteLock;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 /**
  * Created by xiahongjian on 2021/6/10.
  */
 @Aspect
 @Component
-public class DistributedLockProcessor {
+public class DistributedLockSupport {
     @Autowired
     private RedissonClient redissonClient;
 
     @Around("@annotation(readLock)")
     public Object processReadLock(ProceedingJoinPoint joinPoint, ReadLock readLock) throws Throwable {
-        String lockName = readLock.value();
+        String[] lockNames = readLock.value();
         int timeout = readLock.timeout();
         TimeUnit timeUnit = readLock.timeUnit();
-        RLock lock = redissonClient.getLock(lockName);
-        if (timeout == -1) {
-            lock.lock();
-        } else {
-            lock.lock(timeout, timeUnit);
-        }
-        try {
-            return joinPoint.proceed();
-        } catch (Throwable e) {
-            throw e;
-        } finally {
-            lock.unlock();
-        }
+        return process(joinPoint, lockNames, timeout, timeUnit, lockName -> redissonClient.getReadWriteLock(lockName).readLock());
     }
+
 
     @Around("@annotation(writeLock)")
     public Object processWriteLock(ProceedingJoinPoint joinPoint, WriteLock writeLock) throws Throwable {
-        String lockName = writeLock.value();
+        String[] lockNames = writeLock.value();
         int timeout = writeLock.timeout();
         TimeUnit timeUnit = writeLock.timeUnit();
-        RLock lock = redissonClient.getLock(lockName);
-        if (timeout == -1) {
-            lock.lock();
-        } else {
-            lock.lock(timeout, timeUnit);
-        }
-        try {
-            return joinPoint.proceed();
-        } catch (Throwable e) {
-            throw e;
-        } finally {
-            lock.unlock();
-        }
+        return process(joinPoint, lockNames, timeout, timeUnit, lockName -> redissonClient.getReadWriteLock(lockName).writeLock());
     }
 
     @Around("@annotation(reentrantLock)")
     public Object processWriteLock(ProceedingJoinPoint joinPoint, ReentrantLock reentrantLock) throws Throwable {
-        String lockName = reentrantLock.value();
+        String[] lockNames = reentrantLock.value();
         int timeout = reentrantLock.timeout();
         TimeUnit timeUnit = reentrantLock.timeUnit();
-        RLock lock = redissonClient.getLock(lockName);
-        if (timeout == -1) {
-            lock.lock();
-        } else {
-            lock.lock(timeout, timeUnit);
+        return process(joinPoint, lockNames, timeout, timeUnit, lock -> redissonClient.getLock(lock));
+    }
+
+    private Object process(ProceedingJoinPoint joinPoint, String[] lockNames, int timeout, TimeUnit timeUnit, Function<String, RLock> lockSupplier) throws Throwable {
+        RLock[] locks = new RLock[lockNames.length];
+        for (int i = 0; i < lockNames.length; i++) {
+            String lockName = lockNames[i];
+            RLock lock = lockSupplier.apply(lockName);
+            if (timeout == -1) {
+                lock.lock();
+            } else {
+                lock.lock(timeout, timeUnit);
+            }
+            locks[i] = lock;
         }
         try {
             return joinPoint.proceed();
         } catch (Throwable e) {
             throw e;
         } finally {
-            lock.unlock();
+            for (RLock lock : locks) {
+                lock.unlock();
+            }
         }
     }
 }

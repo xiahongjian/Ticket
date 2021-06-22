@@ -14,7 +14,7 @@ public @interface ReadLock {
     /**
      * 需要获取锁的名称
      */
-    String value();
+    String[] value();
 
     /**
      * 超时时间，不设置则会自动续期
