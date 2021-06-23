@@ -3,9 +3,6 @@ package tech.hongjian.ticket.coupon.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.hongjian.ticket.common.anno.ReadLock;
-import tech.hongjian.ticket.common.anno.ReentrantLock;
-import tech.hongjian.ticket.common.anno.WriteLock;
 import tech.hongjian.ticket.common.utils.PageUtils;
 import tech.hongjian.ticket.common.utils.R;
 import tech.hongjian.ticket.common.validator.CheckIn;
@@ -24,21 +21,21 @@ import java.util.Map;
  * @date 2021-06-05 21:34:46
  */
 @Slf4j
-@RestController
-@RequestMapping("coupon/coupon")
+//@RestController
+//@RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
 
 
-    @ReadLock("my-lock")
+    //    @ReadLock("my-lock")
     @GetMapping("read")
     public R read() {
         log.info("读..." + Thread.currentThread().getId());
         return R.ok("读结束");
     }
 
-    @WriteLock("my-lock")
+    //    @WriteLock("my-lock")
     @GetMapping("write")
     public R write() throws InterruptedException {
         log.info("写开始..." + Thread.currentThread().getId());
@@ -47,7 +44,7 @@ public class CouponController {
         return R.ok("写结束");
     }
 
-    @ReentrantLock({"lock1", "lock2"})
+    //    @ReentrantLock({"lock1", "lock2"})
     @GetMapping("lock12")
     public R lock12() throws InterruptedException {
         log.info("获取锁1,2...{}", Thread.currentThread().getId());
@@ -56,7 +53,7 @@ public class CouponController {
         return R.ok("释放锁");
     }
 
-    @ReentrantLock("lock1")
+    //    @ReentrantLock("lock1")
     @GetMapping("lock1")
     public R lock1() {
         log.info("获取锁1...");
@@ -64,7 +61,7 @@ public class CouponController {
         return R.ok("获取锁1");
     }
 
-    @ReentrantLock("lock2")
+    //    @ReentrantLock("lock2")
     @GetMapping("lock2")
     public R lock2() {
         log.info("获取锁2...");
