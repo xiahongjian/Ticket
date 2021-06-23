@@ -9,7 +9,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>tech.hongjian.ticket</groupId>
     <artifactId>common</artifactId>
     <name>common</name>
     <description>Common</description>
